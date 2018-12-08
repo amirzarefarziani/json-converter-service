@@ -1,7 +1,9 @@
 package amir.json.converter.dto;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
+@JsonIgnoreProperties
 public class Employee {
 
     @JsonProperty("EmployeeName")
