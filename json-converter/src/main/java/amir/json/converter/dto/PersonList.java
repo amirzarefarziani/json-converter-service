@@ -1,19 +1,19 @@
 package amir.json.converter.dto;
 
-import org.codehaus.jackson.annotate.JsonProperty;
-
 import java.util.List;
 
 public class PersonList {
 
-    @JsonProperty("Persons")
-    private List<Person> personList;
+    private List<Person> persons;
 
-    public List<Person> getPersonList() {
-        return personList;
+    public List<Person> getPersons() {
+        return persons;
     }
 
-    public void setPersonList(List<Person> personList) {
-        this.personList = personList;
+    @Override
+    public String toString() {
+        return "PersonList{" +
+                "persons=" + persons +
+                '}';
     }
 }

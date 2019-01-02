@@ -38,7 +38,7 @@ public class JsonGeneratorService {
                 jsonGenerator.writeStringField("EmployeeListId",UUID.randomUUID().toString());
 
                 jsonGenerator.writeArrayFieldStart("Employees");
-                    for(Person person: personList.getPersonList()) {
+                    for(Person person: personList.getPersons()) {
                         jsonGenerator.writeStartObject();
 
                             jsonGenerator.writeObjectFieldStart("EmployeeName");

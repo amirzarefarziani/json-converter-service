@@ -2,77 +2,75 @@ package amir.json.converter.dto;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
-@JsonIgnoreProperties
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonSerialize(include= JsonSerialize.Inclusion.NON_NULL)
 public class Employee {
 
     @JsonProperty("EmployeeName")
-    private EmployeeName employeeName;
+    private final EmployeeName employeeName;
 
     @JsonProperty("Age")
-    private String age;
+    private final String age;
 
     @JsonProperty("HomeAddress")
-    private String homeAddress;
+    private final String homeAddress;
 
     @JsonProperty("DepartmentId")
-    private Integer departmentId;
+    private final Integer departmentId;
+
+    private Employee(EmployeeBuilder builder) {
+        this.employeeName = builder.employeeName;
+        this.age = builder.age;
+        this.homeAddress = builder.homeAddress;
+        this.departmentId = builder.departmentId;
+    }
 
     public String getAge() {
         return age;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
     }
 
     public String getHomeAddress() {
         return homeAddress;
     }
 
-    public void setHomeAddress(String homeAddress) {
-        this.homeAddress = homeAddress;
-    }
-
     public Integer getDepartmentId() {
         return departmentId;
     }
-
-    public void setDepartmentId(Integer departmentId) {
-        this.departmentId = departmentId;
-    }
-
 
     public EmployeeName getEmployeeName() {
         return employeeName;
     }
 
-    public void setEmployeeName(EmployeeName employeeName) {
-        this.employeeName = employeeName;
-    }
+    public static class EmployeeBuilder {
 
-    public class EmployeeName {
+        private EmployeeName employeeName;
+        private String age;
+        private String homeAddress;
+        private Integer departmentId;
 
-        @JsonProperty("FirstName")
-        private String employeeFirstName;
-
-        @JsonProperty("LastName")
-        private String employeeLastName;
-
-        public String getEmployeeFirstName() {
-            return employeeFirstName;
+        public EmployeeBuilder(EmployeeName employeeName) {
+            this.employeeName = employeeName;
         }
 
-        public void setEmployeeFirstName(String employeeFirstName) {
-            this.employeeFirstName = employeeFirstName;
+        public EmployeeBuilder age(String age) {
+            this.age = age;
+            return this;
         }
 
-        public String getEmployeeLastName() {
-            return employeeLastName;
+        public EmployeeBuilder homeAddress(String homeAddress) {
+            this.homeAddress = homeAddress;
+            return this;
         }
 
-        public void setEmployeeLastName(String employeeLastName) {
-            this.employeeLastName = employeeLastName;
+        public  EmployeeBuilder departmentId(Integer departmentId) {
+            this.departmentId = departmentId;
+            return this;
+        }
+
+        public Employee build() {
+            return new Employee(this);
         }
     }
 

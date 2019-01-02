@@ -3,12 +3,12 @@ package amir.json.converter.service.mapper;
 import amir.json.converter.dto.EmployeeList;
 import amir.json.converter.dto.PersonList;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Singleton;
 import java.io.IOException;
-import java.util.Date;
 
 @Singleton
 public class ConverterObjectMapper {
@@ -18,10 +18,7 @@ public class ConverterObjectMapper {
 
     public PersonList readValue(String personListAsJson){
         try {
-            LOGGER.info("readValue() from personListAsJson to PersonList - started at: "+ new Date().toString());
-            PersonList personList = mapper.readValue(personListAsJson, PersonList.class);
-            LOGGER.info("readValue() from personListAsJson to PersonList - ended at: "+ new Date().toString());
-            return personList;
+            return mapper.readValue(personListAsJson, PersonList.class);
         } catch (IOException e) {
             LOGGER.error("readValue: exception caught: "+e);
             throw new RuntimeException(e);
@@ -29,10 +26,8 @@ public class ConverterObjectMapper {
     }
     public String writeValue(EmployeeList employeeList) {
         try {
-            LOGGER.info("writeValue() from employeeList - started at: "+ new Date().toString());
-            String json = mapper.writeValueAsString(employeeList);
-            LOGGER.info("writeValue() from employeeList - started at: "+ new Date().toString());
-            return json;
+            mapper.getSerializationConfig().setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
+            return mapper.writeValueAsString(employeeList);
         } catch (IOException e) {
             LOGGER.error("writeValue: exception caught: "+e);
             throw new RuntimeException(e);

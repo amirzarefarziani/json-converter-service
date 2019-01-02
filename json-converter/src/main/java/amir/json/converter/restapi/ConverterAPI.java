@@ -59,36 +59,4 @@ public class ConverterAPI {
         }
     }
 
-    @POST
-    @Path("/bulk-json/convertByObjectConstructor")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response convertBulkByObjectConstructor(String json) {
-        try {
-            objectConstructorService.convertByObjectConstructor(json);
-            return Response
-                    .ok(Entity.json("done"))
-                    .build();
-        } catch (Exception e) {
-            logger.error(EXCEPTION_CAUGHT, e);
-            return Response.ok(Entity.json(e)).build();
-        }
-    }
-
-    @POST
-    @Path("/bulk-json/convertByJsonGenerator")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response convertBulkJsonByJsonGenerator(String json) {
-        try {
-            jsonGeneratorService.convertByJsonGenerator(json);
-            return Response
-                    .ok(Entity.json("done"))
-                    .build();
-        } catch (Exception e) {
-            logger.error(EXCEPTION_CAUGHT, e);
-            return Response.ok(Entity.json(e)).build();
-        }
-    }
-
 }
